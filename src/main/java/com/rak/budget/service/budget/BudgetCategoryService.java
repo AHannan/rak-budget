@@ -4,10 +4,10 @@ import com.rak.budget.controller.budget.dto.BudgetCategoryDto;
 import com.rak.budget.dao.model.budget.BudgetCategory;
 import com.rak.budget.dao.repository.budget.BudgetCategoryRepository;
 import com.rak.budget.service.budget.mapper.BudgetCategoryDtoMapper;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

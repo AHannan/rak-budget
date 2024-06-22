@@ -3,7 +3,7 @@ package com.rak.budget.service.budget.specification;
 import com.rak.budget.dao.model.budget.Budget;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 
