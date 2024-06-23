@@ -11,5 +11,5 @@ public class BudgetDto {
     private String id;
     private String userId;
     private BigDecimal amount;
-    private String categoryid;
+    private String categoryId;
 }

@@ -17,7 +17,7 @@ public class BudgetDtoMapper {
                 .id(entity.getId())
                 .amount(entity.getAmount())
                 .userId(entity.getUserId())
-                .categoryid(entity.getCategory().getId())
+                .categoryId(entity.getCategory().getId())
                 .build();
     }
 

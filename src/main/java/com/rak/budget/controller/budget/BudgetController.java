@@ -2,6 +2,7 @@ package com.rak.budget.controller.budget;
 
 import com.rak.budget.controller.budget.dto.BudgetDto;
 import com.rak.budget.controller.budget.dto.BudgetViewDto;
+import com.rak.budget.dao.model.budget.Budget;
 import com.rak.budget.service.budget.BudgetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/budgets")
@@ -39,6 +42,12 @@ public class BudgetController {
         return service.getById(id)
                 .map(entity -> new ResponseEntity<>(entity, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/category-id/{categoryId}/userId/{userId}")
+    public ResponseEntity<Budget> getBudgetByCategoryIdAndUserId(@PathVariable String categoryId, @PathVariable String userId) {
+        Optional<Budget> budget = service.getBudgetByCategoryIdAndUserId(categoryId, userId);
+        return budget.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping

@@ -32,13 +32,16 @@ public class BudgetService {
                 .map(mapper::mapView);
     }
 
+    public Optional<Budget> getBudgetByCategoryIdAndUserId(String categoryId, String userId) {
+        return repository.findByCategoryIdAndUserId(categoryId, userId);
+    }
+
     public BudgetDto create(BudgetDto dto) {
-        if (repository.existsByUserIdAndCategoryId(dto.getUserId(), dto.getCategoryid())) {
-            throw new IllegalStateException("User already has a budget for category id " + dto.getCategoryid());
+        if (repository.existsByUserIdAndCategoryId(dto.getUserId(), dto.getCategoryId())) {
+            throw new IllegalStateException("User already has a budget for category id " + dto.getCategoryId());
         }
 
         var result = new Budget();
-        result.setId(dto.getId());
         result.setUserId(dto.getUserId());
         result.setAmount(dto.getAmount());
         result.setCategory(toCategory(dto));
@@ -55,7 +58,7 @@ public class BudgetService {
     }
 
     private BudgetCategory toCategory(BudgetDto dto) {
-        return budgetCategoryService.findById(dto.getCategoryid());
+        return budgetCategoryService.findById(dto.getCategoryId());
     }
 
     public boolean delete(String id) {
