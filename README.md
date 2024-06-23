@@ -137,7 +137,7 @@ mvn test
 
 ### Additional Information
 
-For more details, refer to the API documentation available at `http://localhost:8080/swagger-ui.html` after starting the application.
+For more details, refer to the API documentation available at `http://localhost:8080/api/budget/swagger-ui/index.html` after starting the application.
 
 ### Contributing
 
