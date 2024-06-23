@@ -1,3 +1,5 @@
+Here's the updated README for the Budget service, now using H2 database:
+
 ## Budget Service
 
 The Budget Service allows users to manage their budgets by creating categories and setting budgets for different expense categories.
@@ -6,7 +8,6 @@ The Budget Service allows users to manage their budgets by creating categories a
 
 - Java 21 or higher
 - Gradle
-- PostgreSQL database
 
 ### Setup
 
@@ -19,25 +20,7 @@ The Budget Service allows users to manage their budgets by creating categories a
 
 2. **Configure the Database**
 
-   Update the `application.yml` file with your PostgreSQL database credentials.
-
-   ```yaml
-   spring:
-     datasource:
-       url: jdbc:postgresql://localhost:5432/your_database
-       username: your_username
-       password: your_password
-       schema: public
-
-     jpa:
-       hibernate:
-         ddl-auto: update
-       show-sql: true
-       database-platform: org.hibernate.dialect.PostgreSQLDialect
-
-   server:
-     port: 8080
-   ```
+   The application is configured to use H2 in-memory database for development. The database configuration is specified in the `application.properties` file. You do not need to make any changes to the database configuration for development.
 
 3. **Build the Project**
 
@@ -50,6 +33,46 @@ The Budget Service allows users to manage their budgets by creating categories a
    ```sh
    ./gradlew bootRun
    ```
+
+### Database Configuration
+
+The application uses H2 in-memory database for development. Below is the relevant section of the `application.properties` file:
+
+```properties
+spring.profiles.active=dev
+spring.mvc.pathmatch.matching-strategy=ant_path_matcher
+
+server.port=8080
+server.servlet.contextPath=/api
+
+# H2 Database Configuration
+spring.datasource.url=jdbc:h2:mem:budget
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=password
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+
+# Flyway Configuration
+spring.flyway.enabled=true
+spring.flyway.url=jdbc:h2:mem:budget
+spring.flyway.user=sa
+spring.flyway.password=password
+spring.flyway.schemas=public
+
+# Swagger
+springdoc.swagger-ui.path=/swagger-ui.html
+springdoc.api-docs.path=/api-docs
+```
+
+### Accessing the H2 Console
+
+The H2 console is available at `http://localhost:8080/api/h2-console`. Use the following settings to log in:
+
+- **JDBC URL**: `jdbc:h2:mem:budget`
+- **User Name**: `sa`
+- **Password**: `password`
 
 ### API Endpoints
 
@@ -112,12 +135,12 @@ Creates a new budget for a specific user.
 To run the tests for the Budget service, execute the following command:
 
 ```sh
-mvn test
+./gradlew test
 ```
 
 ### Additional Information
 
-For more details, refer to the API documentation available at `http://localhost:8080/api/budget/swagger-ui/index.html` after starting the application.
+For more details, refer to the API documentation available at `http://localhost:8080/api/swagger-ui.html` after starting the application.
 
 ### Contributing
 

@@ -32,8 +32,9 @@ public class BudgetService {
                 .map(mapper::mapView);
     }
 
-    public Optional<Budget> getBudgetByCategoryIdAndUserId(String categoryId, String userId) {
-        return repository.findByCategoryIdAndUserId(categoryId, userId);
+    public Optional<BudgetViewDto> getBudgetByCategoryIdAndUserId(String categoryId, String userId) {
+        return repository.findByCategoryIdAndUserId(categoryId, userId)
+                .map(mapper::mapView);
     }
 
     public BudgetDto create(BudgetDto dto) {
