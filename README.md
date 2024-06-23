@@ -4,8 +4,8 @@ The Budget Service allows users to manage their budgets by creating categories a
 
 ### Prerequisites
 
-- Java 17 or higher
-- Maven
+- Java 21 or higher
+- Gradle
 - PostgreSQL database
 
 ### Setup
@@ -42,13 +42,13 @@ The Budget Service allows users to manage their budgets by creating categories a
 3. **Build the Project**
 
    ```sh
-   mvn clean install
+   ./gradlew build
    ```
 
 4. **Run the Application**
 
    ```sh
-   mvn spring-boot:run
+   ./gradlew bootRun
    ```
 
 ### API Endpoints
@@ -106,26 +106,6 @@ Creates a new budget for a specific user.
       "categoryId": "78030f1a-0231-4211-86d0-efd6696f5377"
   }'
   ```
-
-### Database Schema
-
-Here is the PostgreSQL schema for the `budgets` and `budget_categories` tables.
-
-```sql
-CREATE TABLE budget_categories (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE budgets (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id UUID NOT NULL,
-    amount DECIMAL(10, 2) NOT NULL,
-    category_id UUID REFERENCES budget_categories(id),
-    creation_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    modification_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-```
 
 ### Running Tests
 
